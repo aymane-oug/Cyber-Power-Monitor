@@ -1,0 +1,107 @@
+Algorithme 	Cyber_Power_Monitor 
+variables 
+	Q , W , P : reel 
+	U , I , t : reel 
+	choix : entier 
+	P_min , P_max : reel
+	nom_appareil : chain 
+Debut 
+	Ecrire("==============================================")
+	Ecrire("CYBER POWER MONITOR (CPM) -- BY AYMANE-OUG")
+	Ecrire("==============================================")
+	
+	Ecrire("What device would you like to monitor ? : ")
+	Ecrire("1. Security Camera")
+	Ecrire("2. Wi-Fi Access Point ")
+	Ecrire("3. RFID Reader ")
+	Ecrire("4. Alarm System ")
+	Ecrire("5. IoT Security Sensor")
+	Ecrire("6. Other")
+	Ecrire("Please chose an Option")
+	lire(choix)
+	Ecrire("Entrer la tension (V) : ")
+	lire(U)
+	Ecrire("Entrer le courant (A) : ")
+    Lire(I)
+	Ecrire("Entrer la durée (s) : ")
+    Lire(t)
+	SI U <= 0 OU I < 0 OU t <= 0 ALORS
+		Ecrire("Erreur : valeurs invalides")
+		Quitter()
+	FinSi
+
+	
+	Selon choix Faire 
+		cas 1 : 
+			nom_appareil <-- "Security Camera"
+			check(nom_appareil , U , I , t , 5 , 15)
+		cas 2 : 
+			nom_appareil <-- "Wi-Fi Access Point"
+			check(nom_appareil , U , I , t ,  5 , 20)
+		cas 3 : 
+			nom_appareil <-- "RFID Reader"
+			check(nom_appareil , U , I , t  , 1 , 5)
+		cas 4 : 
+			nom_appareil <-- "Alarm System"
+			check(nom_appareil , U , I , t  , 5 , 30)
+		cas 5 : 
+			nom_appareil <-- "IoT Security Sensor"
+			check(nom_appareil , U , I , t  , 0.5 , 3)
+		cas 6 : 
+			Ecrire("Quelle est le nom de votre appareil ? : ")
+			lire(nom_appareil)
+			Ecrire("Quelle est la puissance minimal normal de watt de cet appareil ? : ")
+			lire(P_min)
+			Ecrire("Quelle est la puissance maximal de watt de cet appareil ? : ")
+			lire(P_max)
+			SI P_min < 0 OU P_max <= P_min ALORS
+				Ecrire("Erreur : plage de puissance invalide")
+				Quitter()
+			FinSi
+			check(nom_appareil, U, I, t, P_min, P_max)
+		defaut : 
+			Ecrire("Option invalide")
+	FinSelon
+Fin
+
+Procedure check(device_name , U , I , t , P_min, P_max) 
+variables 
+	Q , W , P : reel 
+	
+Debut 
+		
+	Q <-- I * t
+	W <-- U * Q
+	P <-- U * I 
+
+	Ecrire("==============================================")
+	Ecrire("CYBER POWER MONITOR (CPM) -- BY AYMANE-OUG")
+	Ecrire("==============================================")
+	
+	Ecrire("appareil : ", device_name)
+	Ecrire("Voltage : ", U)
+	Ecrire("Courant : ", I)
+    Ecrire("duree : ", t)
+	Ecrire("==============================================")
+	Ecrire("Charge : ", Q, " C")
+    Ecrire("Puissance : ", P, " W")
+    Ecrire("Energie : ", W, " J")
+	Ecrire("==============================================")
+	Ecrire("Debut De Cyber Test : .....")
+	Ecrire("==============================================")
+	Ecrire("Resultat d'Analyse Cyber : ")
+
+	
+	si P < P_min Alors 
+		Ecrire("Anomalie de faible puissance !!!")
+	sinon si P > P_max Alors 
+		Ecrire("Anomalie de haute puissance !!!")
+		Ecrire("Menace de cyber_attaque !!!!")
+	Sinon 
+		Ecrire("Normal")
+	FinSi
+Fin Procedure
+
+	
+		
+	
