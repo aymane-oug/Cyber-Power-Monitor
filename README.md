@@ -153,8 +153,8 @@ Cyber-Power-Monitor/
 ├── src/
 │   └── main.c
 │
-├── README.md
-└── .gitignore
+└── README.md
+
 ```
 
 ### `algorithm/`
